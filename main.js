@@ -40,17 +40,35 @@ var staff = [
   ]
 //render all staff on page load
 function initializeApp(){
-
+  renderAllStaff(staff) ;
 }
 // go through each staff member and call renderOneStaff, passing in the staff member data
 function renderAllStaff( allStaff ){
-
+    for(var i = 0; i < allStaff.length; i++){
+        renderOneStaff(allStaff[i]);
+    }
 }
 //create the dom elements for the staff member and put it in the #staffList.  use the existing html as your guide for how it should be formatted
 // add a click handler to the parent element for each staff member that changes the details in the #staffDetails element, according to the example there
 function renderOneStaff( member ){
 
+    var staffMember = $('<div>',{
+        class: 'staffMember',
+        click: function () {
+            changeDetails(member);
+        }
+    });
+
+    var name = $('<div>').addClass('name').text(member.name);
+    var occupation = $('<div>').addClass('occupation').text(member.occupation);
+    staffMember.append(name);
+    staffMember.append(occupation);
+    $('#staffList').append(staffMember);
 }
 
-
+function changeDetails(member){
+    $('.detailStaff .avatar').attr('src',member.avatar);
+    $('.detailStaff .name').text(member.name);
+    $('.detailStaff .occupation').text(member.occupation);
+}
 
